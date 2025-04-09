@@ -33,7 +33,26 @@ class QuizMaker:
             # Opens file and then prints it for the user to see contents
             questionares = open(f"{subjects}.txt, 'r'")
             lines = questionares.readlines()
+
+            # Adds numbering per line
             for i, line in enumerate(lines, 1):
                 print(f"{i}) {line.strip()}")
+
+            # Asks user what to change and then prints out the questions and their line number
+            print('What would you like to change?')
+            print(questionares.read)
+
+            # User will choose what line to edit
+            edit_line = input('What line would you like to change?(Enter 0 to cancel): ')
+            if edit_line == 0:
+                break
+
+            # Asks user what to replace
+            edit_statement = input(f"Enter new content on line {edit_line}: \n")
             
+             # Replaces the line with new content
+            new_line = f"{edit_statement}\n"
+
+
             
+
