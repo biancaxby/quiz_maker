@@ -58,5 +58,22 @@ class QuizMaker:
             questionares.writelines(new_line)
             questionares.close()
 
-            
+    def view_questions():
+        while True:
+            subjects = input('What subject? (math, science, english, history) or enter "quit": ').lower()
+            if subjects == "quit":
+                break
+            questionares = open(f"{subjects}.txt, 'r'")
+            print(questionares.read)  # Prints all the questions stored on the text file
 
+quiz = QuizMaker
+print('1. Create questions\n2. Edit questions\n3. See questions')
+user_input = input('What would you like to do?: ')
+if user_input == 1:
+    quiz.question_comp
+elif user_input == 2:
+    quiz.file_edit
+elif user_input == 3:
+    quiz.view_questions
+else:
+    print('Invalid input')
