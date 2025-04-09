@@ -45,14 +45,18 @@ class QuizMaker:
             # User will choose what line to edit
             edit_line = input('What line would you like to change?(Enter 0 to cancel): ')
             if edit_line == 0:
-                break
+                break   
 
             # Asks user what to replace
             edit_statement = input(f"Enter new content on line {edit_line}: \n")
             
              # Replaces the line with new content
             new_line = f"{edit_statement}\n"
-
+            
+            # Writes on the file again
+            questionares = open(f"{subjects}.txt, 'w'")
+            questionares.writelines(new_line)
+            questionares.close()
 
             
 
