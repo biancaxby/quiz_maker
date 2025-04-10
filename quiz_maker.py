@@ -8,8 +8,8 @@ def question_comp():
 
         # Open file and append input to the text file
         questionares = open(f"{subjects}.txt", 'a')
-        questionares.write(input(f"Enter a question: \n"))
-        questionares.write(f"a) {input('Enter option a: ')}\n")
+        questionares.write(input("Enter a question: \n"))
+        questionares.write(f"\na) {input('Enter option a: ')}\n")
         questionares.write(f"b) {input('Enter option b: ')}\n")
         questionares.write(f"c) {input('Enter option c: ')}\n")
         questionares.write(f"d) {input('Enter option d: ')}\n")
