@@ -14,31 +14,30 @@ def file_reader():
             lines = quiz.readlines()
             count_line = 0         # Counts how many lines 
             correct_answers = 0    # Counts how many correct answers 
-            question_count = 0
 
             while count_line < len(lines):
-                question_storage = []         # Stores the qestions here so that it is easier to deal with
-                if lines.isspace:      # Checks if the line is empty or only has space
-                    count_line += 1   
                 for i in range(5):
-                    if count_line + i < len(lines):
-                            question_count.append(lines[question_count + i].strip())
-
-            # Separates each line
-            for line in lines:
-                print(line.strip())
-                count_line +=1      # Counts the line
+                    if count_line < len(lines):
+                            striped_lines = lines[count_line].strip()
+                            count_line += 1
                 
                 user_answer = input('What do you think is the answer? ').strip
-                
-                # Checks if the line is the answer key
-                if count_line < len(lines) and lines[count_line].startswith("The correct answer is:"):
-                    answer = lines[count_line].split(":")[1].strip()   # Separates the answer
-                    count_line += 1
-                    
                 if  user_answer == answer:
                     print("\033[32mCorrect!!\033[0m")
                     correct_answers += 1
+
+                # Checks if the line is the answer key
+                if count_line < len(lines) and lines[count_line].startswith("The correct answer is:"):
+                    answer = lines[count_line].replace("The correct answer is: ", "").strip   # Separates the answer
+                    count_line += 1
+
+                if lines == "":
+                    continue_msg = input('want to continue? (y/n) ')
+                    if continue_msg == "y":
+                        return 
+                    if continue_msg == "n":
+                        menu()
+
         except ValueError:
             print('Invalid input')
                 
