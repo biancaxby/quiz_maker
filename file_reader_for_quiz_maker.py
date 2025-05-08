@@ -15,7 +15,8 @@ def file_reader():
             lines = quiz.readlines()
             count_line = 0         # Counts how many lines 
             correct_answers = 0    # Counts how many correct answers 
-            
+            question_counter = 0
+
             while count_line < len(lines):
                 for _ in range(5):      # Prints 5 lines of the text file
                     if count_line >= len(lines):
@@ -38,6 +39,8 @@ def file_reader():
 
                         # Asks user for the answer to the question
                         user_answer = input('What do you think is the answer? ').lower().strip()
+                        question_counter += 1      # Counts how many questions have been displayed
+
                         if  user_answer == answer:
                                 print("Correct!")     # Prints correct if the answer is correct
                                 correct_answers += 1  # Adds to the number of correct answers
@@ -46,6 +49,9 @@ def file_reader():
                         if user_answer == "quit":     # Returns to the menu 
                                 menu()
                                 return
+            percentage = correct_answers / question_counter * 100
+            print(f"You have scored {correct_answers} out of {question_counter}! Which means you have answered {percentage} of the questions correctly!")
+
 
         finally:
              quiz.close
