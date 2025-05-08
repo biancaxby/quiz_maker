@@ -4,12 +4,12 @@
 # Use startswith
 # Make sure only 5 of the lines are printed each time
 
-
 def file_reader():
     while True:
         subject = (input('What subject would you like?(math, english, science, history) (enter quit to go back) ')).lower()
         if subject == "quit":
              menu()
+        username = input("Enter your name: ")
         try:
             quiz = open(f"{subject}.txt", 'r')
             lines = quiz.readlines()
@@ -49,13 +49,24 @@ def file_reader():
                         if user_answer == "quit":     # Returns to the menu 
                                 menu()
                                 return
-            percentage = correct_answers / question_counter * 100
-            print(f"You have scored {correct_answers} out of {question_counter}! Which means you have answered {percentage} of the questions correctly!")
-
-
+            percentage = correct_answers / question_counter * 100    # Calculates the percentage of the score 
+            print(f"Congrats {username}! You have scored {correct_answers} out of {question_counter}!\n Which means you have answered {percentage}% of the questions correctly!")
+            
         finally:
              quiz.close
                 
+def score_viewer(usernames, correct_answers):
+    # Create a list of [username, score] pairs
+    top_scorers = [[name, score] for name, score in zip(usernames, correct_answers)]    
+    
+    # Sort the list by score in descending order
+    top_scorers.sort(key=lambda x: x[1], reverse=True)
+    
+    # Display the sorted scores
+    print("Top Scorers:")
+    for i, (name, score) in enumerate(top_scorers, 1):
+        print(f"{i}. {name} {score} points")
+
 def menu():
     while True:
         print('1. Start quiz')
@@ -64,10 +75,10 @@ def menu():
         if user_input == "1":
             file_reader()
         if user_input == "2":
-            continue
+            score_viewer()
         else:
             break
- 
 
-file_reader()
 menu()
+file_reader()
+score_viewer()
