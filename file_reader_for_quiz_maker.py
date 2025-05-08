@@ -4,18 +4,24 @@
 # Use startswith
 # Make sure only 5 of the lines are printed each time
 
+usernames = []
+correct_answers_list = []   # Storage for username, and score
+
 def file_reader():
     while True:
         subject = (input('What subject would you like?(math, english, science, history) (enter quit to go back) ')).lower()
         if subject == "quit":
              menu()
+
         username = input("Enter your name: ")
+        usernames.append(username)
+
         try:
             quiz = open(f"{subject}.txt", 'r')
             lines = quiz.readlines()
             count_line = 0         # Counts how many lines 
             correct_answers = 0    # Counts how many correct answers 
-            question_counter = 0
+            question_counter = 0   
 
             while count_line < len(lines):
                 for _ in range(5):      # Prints 5 lines of the text file
@@ -49,15 +55,17 @@ def file_reader():
                         if user_answer == "quit":     # Returns to the menu 
                                 menu()
                                 return
+            
+            correct_answers_list.append(correct_answers)
             percentage = correct_answers / question_counter * 100    # Calculates the percentage of the score 
             print(f"Congrats {username}! You have scored {correct_answers} out of {question_counter}!\n Which means you have answered {percentage}% of the questions correctly!")
             
         finally:
-             quiz.close
+             quiz.close()
                 
-def score_viewer(usernames, correct_answers):
+def score_viewer():
     # Create a list of [username, score] pairs
-    top_scorers = [[name, score] for name, score in zip(usernames, correct_answers)]    
+    top_scorers = [[name, score] for name, score in zip(usernames, correct_answers_list)]    
     
     # Sort the list by score in descending order
     top_scorers.sort(key=lambda x: x[1], reverse=True)
@@ -80,5 +88,3 @@ def menu():
             break
 
 menu()
-file_reader()
-score_viewer()
