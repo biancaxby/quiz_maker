@@ -15,29 +15,37 @@ def file_reader():
             count_line = 0         # Counts how many lines 
             correct_answers = 0    # Counts how many correct answers 
             answer_key = []
-          
-            for _ in range(5):
-                if count_line < len(lines):
-                        striped_lines = lines[count_line].strip()
-                        if striped_lines == "":
-                            count_line += 1
-                            continue
-                        print(striped_lines)
+            
+            while count_line < len(lines):
+                for _ in range(5):      # Prints 5 lines of the text file
+                    if count_line < len(lines):
+                            striped_lines = lines[count_line].strip()
+                            
+                    if striped_lines.startswith("The correct answer is:"):      # Ignores the lines containing the answer key
                         count_line += 1
-
-             # Checks if the line is the answer key
-                if count_line < len(lines) and lines[count_line].startswith("The correct answer is:"):
-                    answer = lines[count_line].replace("The correct answer is: ", "").strip()   # Separates the answer
-                    answer_key.append(answer)
+                        continue
+                    
+                    if striped_lines == "":    # Ignores blank or empty lines
+                        count_line += 1
+                        continue
+                    
+                    print(striped_lines)
                     count_line += 1
 
-            user_answer = input('What do you think is the answer? ').lower().strip()
-            if  user_answer == answer_key:
-                    print("correct!")
-                    correct_answers += 1
+                # Checks if the line is the answer key
+                    if count_line < len(lines) and lines[count_line].startswith("The correct answer is:"):
+                        answer = lines[count_line].replace("The correct answer is: ", "").strip()   # Separates the answer
+                        answer_key.append(answer)
+                        count_line += 1
 
-            if user_answer == "quit":
-                    menu()
+                user_answer = input('What do you think is the answer? ').lower().strip()
+                if  user_answer == answer_key:
+                        print("correct!")
+                        correct_answers += 1
+
+                if user_answer == "quit":
+                        menu()
+                        return
 
         except ValueError:
             print('Invalid input')
